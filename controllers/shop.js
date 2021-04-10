@@ -36,10 +36,26 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  res.render('shop/cart', {
-    path: '/cart',
-    pageTitle: 'Your Cart'
-  });
+  Cart.getCart((data) => {
+    Product.fetchAll(products => {
+      const cartProducts = [];
+      products.forEach(prd => {
+        console.log('datatata', data);
+       let cartItem = data.products.find(prod => prod.id === prd.id);
+       if(cartItem) {
+        cartProducts.push({productData:prd, qty: cartItem.qty});
+       }
+       console.log('cart produuctsss', cartProducts);
+
+      })
+      res.render('shop/cart', {
+        path: '/cart',
+        pageTitle: 'Your Cart',
+        products: cartProducts
+      });
+    })
+  })
+ 
 };
 
 
