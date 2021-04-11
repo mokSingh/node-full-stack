@@ -68,7 +68,7 @@ exports.updateProduct = (req, res, next) => {
   let imageUrl = req.body.imageUrl;
   let price = req.body.price;
   let description =  req.body.description;
-  // We already have prodcut for this user
+  // We already have product for this user
   Product.findByPk(productId).then((product) => {
     product.productId = productId;
     product.title = title;
